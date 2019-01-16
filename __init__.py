@@ -4,21 +4,23 @@ from aqt import mw
 from aqt.utils import showInfo
 # import all of the Qt GUI library
 from aqt.qt import *
-from pydubz.audio_segment import AudioSegment
-
-def match_target_amplitude(sound, target_dBFS):
-    change_in_dBFS = target_dBFS - sound.dBFS
-    return sound.apply_gain(change_in_dBFS)
-
+import anki.sound
+import time
+import wave
 
 # We're going to add a menu item below. First we want to create a function to
 # be called when the menu item is activated.
 
 def click_menu():
-    # get the number of cards in the current collection, which is stored in
-    # the main window
-    # show a message box
+    anki.sound.play('~/Downloads/brown.wav')
     showInfo("Generating audio file...")
+    first = col.db.scalar(
+	"select min(id) from revlog where cid = ?", c.id)
+    twenty_four_ago = time.time() - 86400
+#   todays = col.db.scalar(
+#	"select id from revlog where id > {}".format(twenty_four_hours_ago), todays_id)
+    showInfo("Card {}".format(c.id))
+
     
 
 action = QAction("Targeted Memory Reactivation", mw)
